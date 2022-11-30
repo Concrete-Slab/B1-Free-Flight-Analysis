@@ -1,7 +1,7 @@
 close all
 
 % Define simulation parameters
-theta = 5; % angle of attack (degrees)
+theta = 90; % angle of attack (degrees)
 n = 100; % number of control points
 poly = [0 0]; % polynomial coefficients for wing camber
 nXField = 500; % number of x grid points
@@ -50,7 +50,7 @@ h.EdgeAlpha = 0;
 %plot(o(1,:),o(2,:),'rx')
 %plot(s(1,:),s(2,:),'b*')
 plot(x(1,:),x(2,:),'k')
-quiver(X,Y,uField(:,:,1),uField(:,:,2))
+%quiver(X,Y,uField(:,:,1),uField(:,:,2))
 
 %quiver(o(1,:),o(2,:),controlVel(1,:),controlVel(2,:),AutoScaleFactor=0.2)
 [cp,cf,cm] = forces(x,o,uinf,p,s,q);
