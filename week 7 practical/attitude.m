@@ -12,7 +12,7 @@ function [x1] = attitude(y,theta, x)
 n= size(x,2);
 c= cos(theta);
 s= sin(theta);
-for i=1:n
+for i=n:-1:1
     x1(i,1)= x(i,1)*c+ x(i,2)*s+y(1);
     x1(i,2)=-x(i,1)*s+ x(i,2)*c+y(2);
 end

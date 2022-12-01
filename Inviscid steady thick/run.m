@@ -10,7 +10,11 @@
 function [x,q] = run(n, t,m,p, u)
 
 % Initialize sources and circulation vector
- q= zeros(2*n+1,1);
+ q= zeros(2*n+1,1); % why 2n+1?
+ % 2n+1 because n is number of subdivisions on wing. This means for each
+ % subdivision there is a panel above and below, hence the multiplying by 2
+
+ % hence this n is different to the n used internally in other functions
 
 % Generate aerofoil
 [x]= nacaxxxx(n, t,m,p);

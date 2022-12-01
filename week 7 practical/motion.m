@@ -13,7 +13,7 @@ function [y,theta] = motion( t )
     y= [0;0];
     y(1)= t*15;
     y(2)= t*0.1;
-    if( t < tmax )then
+    if( t < tmax )
        theta= 0.1*t;
     else
        theta= 0.1*tmax;

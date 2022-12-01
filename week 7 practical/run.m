@@ -10,7 +10,19 @@
 %            tlim     Final time for integration
 
 function [x,q] = run(n, t,m,p, u,dt,tlim )
-
+arguments(Input)
+    n(1,1) uint
+    t(1,1) double
+    m(1,1) double
+    p(1,1) double
+    u(2,1) double
+    dt(1,1) double
+    tlim(1,1) double
+end
+arguments(Output)
+    x(2,:) double % (2,2n+1)
+    q(1,:) double % (1,2n+1)
+end
 
 
 % Initialize sources and circulation vector
@@ -55,11 +67,13 @@ while time < tlim
     [x1] = attitude(y,theta, x);                    % new positions of panel vertices
 
     dx= x1-x0;
-    dx= dx/dt;                                      % time derivatives of the panel vertices
+    vPanel= dx/dt;                                      % time derivatives of the panel vertices
     
 % update positions of shed vortices (note only far field velocity affects these
+% note that this is just the simplest way of determining vortex position
+% there are other ways to do this, presumably solver will still work?
     for h=1:k
-        xw(h,:)= xw(h,:)+ dt*u;
+        xw(h,:)= xw(h,:)+ dt*u; % move vortex center by u*dt
     end
         
     
@@ -67,19 +81,22 @@ while time < tlim
     
 % assemble residual for unsteady problem - the following lines have a very  similar purpose to your old "residual" function, but use velocities due
 % not only to the far field but also to the motion of the aerofoil itself
-     
+
+% The first term in each residual component is the net flow field velocity
 % normal velocities induced by the motion of the aerofoil
     
     for i=1:2*n
         [~,~,np]=panel(x1,i);
-        vp= 0.5*( dx(i,:)+dx(i+1,:) );
+        vp= 0.5*( vPanel(i,:)+vPanel(i+1,:) );
+        % note minus sign: the source and vortex strength will create a velocity field which cancels the normal component
+        % (its just moving the statement to the other side of the equation (3.22))
         vp= vp- u;
-        r(i)= np'*vp;                                  % note minus sign: the source and vortex strength will create a velocity field which cancels the normal component
+        r(i)= np'*vp;
     end
     
 
 % normal velocities induced by old sections of the wake
-    for h=1:k
+    for h=1:k % 1: number of wake vortices
         for i=1:2*n
            [xp,~,np]= panel( x1,i );                 % note normals evaluated at most recent position
            [v]= vortex( xw(h,:), xp );
@@ -97,11 +114,11 @@ while time < tlim
     a2= zeros(2*n+1,1);
     for i=1:2*n
         
-        % plesae complete this loop by inserting appropriate lines to
+        % please complete this loop by inserting appropriate lines to
         % perform the following operations:
         
         % evaluate midpoint, tangent and normal of panel i, using the most recent panel vertex positions
-        
+        []
         % estimate the position of the newest shed vortex
         
         % evaluate the velocity induced by this vortex (assumed for now of unit strength on panel i: store this value at the appropriate entry in a1
@@ -130,3 +147,4 @@ while time < tlim
      time= time+dt;
 end
 
+end

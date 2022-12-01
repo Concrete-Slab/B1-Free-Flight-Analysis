@@ -11,7 +11,7 @@ function [a]=influence(x)
 
 % number of control points
    n=size(x,2);
-   n= n-1;
+   n= n-1; % x=1 and x=n are at the same point for the surface to be closed.
 
    a= zeros(n+1,n+1);
    
