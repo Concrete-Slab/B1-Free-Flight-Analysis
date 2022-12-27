@@ -39,7 +39,7 @@ function [x] = nacaxxxx(n, t,m,p)
 
 
        j= n+2-i;
-       fprintf( "( %d %d) from %d % 9.3e\n", i,2*n+2-i, n+2-i, w(j) );
+       %fprintf( "( %d %d) from %d % 9.3e\n", i,2*n+2-i, n+2-i, w(j) );
 
 % Find direction normal to the tangent line
        v= [1.;dw(j)];

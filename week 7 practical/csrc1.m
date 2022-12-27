@@ -23,9 +23,9 @@ z=  [s'*(x-x1);
      t'*(x-x1)];
  
 % Evaluate velocities in the s-t frame of reference
- [u,v] = csrc0(0.,z1, z(1),z(2));
- 
+[u,v] = csrc0(0.,z1, z(1),z(2));
+
 % Transform back
- w=u*s+ v*t;
+w = u*s + v*t;
 
 end

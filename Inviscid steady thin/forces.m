@@ -23,6 +23,7 @@ for i = n:-1:1
     t = t/norm(t);
     w = vortex(s,o(:,i))*q + u ;
     v(i) = w'*t;
+
 end
 
 uAbove = v + q';
@@ -62,5 +63,5 @@ end
 % we need to subtract the moment from the net force acting at the com
 cm = cm-(com(1)*cf(2)-cf(1)*com(2));
 
-cf = cf./deltaX; % divide by characteristic area: unity x chord length
+cf = cf./deltaX; % divide cf by characteristic area: unity x chord length
 cm = cm./deltaX./deltaX; % divice cm by characteristic area x chord length

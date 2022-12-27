@@ -28,14 +28,21 @@ function [an,at,bn,bt] = coef(x,i,j)
       at= w'*t;
 % Vortex influence coefficients, note that it is enough to turn the induced
 % velocity by 90o - why?
+
+% vortex velocity is perpendicular to line connecting locus of panel j to
+% panel i, whereas uniform source velocity is parallel. rotate source by 90
+% to get vortex
+
       v=[-w(2);w(1)];
       bn= v'*n;
       bt= v'*t;
   else
-      an=  0.5;
+      % try making an,bt negative if problem encountered
+      % (Have a feeling the positive values are correct though)
+      an=  -0.5;
       at=  0;
       bn=  0;
-      bt=  0.5;
+      bt=  -0.5;
   end
 
 end
